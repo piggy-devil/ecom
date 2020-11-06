@@ -25,5 +25,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function () {
     // All the admin routes will be defined here
+    Route::match(['get', 'post'], '/', 'AdminController@login');
     Route::get('dashboard', 'AdminController@dashboard');
 });
