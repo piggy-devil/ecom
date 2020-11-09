@@ -31,7 +31,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form role="form">
+                        <form role="form" method="post" action="{{ url('/admin/update-pwd') }}" name="updatePasswordForm" id="updatePasswordForm">@csrf
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Admin Email</label>
@@ -43,21 +43,18 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Current Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter Current Password">
+                                    <input type="password" class="form-control" name="current_pwd" id="current_pwd" placeholder="Enter Current Password">
+                                    <span id="chkCurrentPwd"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">New Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter New Password">
+                                    <input type="password" class="form-control" name="new_pwd" id="new_pwd" placeholder="Enter New Password">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Confirm Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter Confirm Password">
+                                    <input type="password" class="form-control" name="confirm_pwd" id="confirm_pwd" placeholder="Enter Confirm Password">
                                 </div>
                                 
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                </div>
                             </div>
                             <!-- /.card-body -->
 
