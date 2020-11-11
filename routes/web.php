@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\SectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,5 +36,9 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         Route::post('check-current-pwd', 'AdminController@chkCurrentPassword');
         Route::post('update-current-pwd', 'AdminController@updateCurrentPassword');
         Route::match(['get', 'post'], 'update-admin-details', 'AdminController@updateAdminDetails');
+
+        // Sections
+        Route::get('sections', 'SectionController@sections');
+        Route::post('update-section-status', 'SectionController@updateSectionStatus');
     });
 });
