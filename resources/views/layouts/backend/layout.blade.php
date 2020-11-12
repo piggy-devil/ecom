@@ -31,6 +31,11 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="{{ url('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ url('backend/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{{ url('backend/plugins/select2/css/select2.min.css') }}">
+  <link rel="stylesheet" href="{{ url('backend/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -101,15 +106,29 @@
   <script src="{{ asset('backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
   <script src="{{ asset('backend/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
   <script src="{{ asset('backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+  <!-- Select2 -->
+  <script src="{{ asset('backend/plugins/select2/js/select2.full.min.js') }}"></script>
+
   <script>
     $(function() {
       $("#sections").DataTable({
         "responsive": true,
         "autoWidth": false,
       });
+      $("#categories").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+      });
+
+      //Initialize Select2 Elements
+      $('.select2').select2()
+
+      //Initialize Select2 Elements
+      $('.select2bs4').select2({
+        theme: 'bootstrap4'
+      })
     });
   </script>
-
 
 </body>
 

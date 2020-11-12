@@ -12,7 +12,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Categories</li>
+                        <li class="breadcrumb-item active">Catalogues</li>
                     </ol>
                 </div>
             </div>
@@ -25,10 +25,19 @@
             <div class="row">
                 <div class="col-12">
                     <!-- /.card -->
+                    @if(Session::has('success_message'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 5px;">
+                        {{ Session::get('success_message') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    @endif
 
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Categories</h3>
+                            <a href="{{ url('admin/add-edit-category') }}" style="max-width: 150px; float:right; display: inline-block;" class="btn btn-block btn-success">Add Category</a>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
