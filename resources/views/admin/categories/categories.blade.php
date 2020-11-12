@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Categories</h1>
+                    <h1>Catalogues</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -45,16 +45,25 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Name</th>
+                                        <th>Category</th>
+                                        <th>Parent Category</th>
+                                        <th>Section</th>
                                         <th>URL</th>
                                         <th>Status(s)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($categories as $category)
+                                    @if(!isset($category->parentcategory->category_name))
+                                        <?php $parent_category = "Root"; ?>
+                                    @else
+                                        <?php $parent_category = $category->parentcategory->category_name; ?>
+                                    @endif
                                     <tr>
                                         <td>{{ $category->id }}</td>
                                         <td>{{ $category->category_name }}</td>
+                                        <td>{{ $parent_category }}</td>
+                                        <td>{{ $category->section->name }}</td>
                                         <td>{{ $category->url }}</td>
                                         <td>
                                             @if($category->status==1)
