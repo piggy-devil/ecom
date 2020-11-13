@@ -22,7 +22,7 @@ class AdminsTableSeeder extends Seeder
                 'type' => 'admin',
                 'mobile' => '000000000',
                 'email' => 'admin@admin.com',
-                'password' => bcrypt('11111111'),
+                'password' => bcrypt('1111'),
                 'image' => '',
                 'status' => 1
             ],
@@ -32,7 +32,7 @@ class AdminsTableSeeder extends Seeder
                 'type' => 'subadmin',
                 'mobile' => '111111111',
                 'email' => 'milin@admin.com',
-                'password' => bcrypt('11111111'),
+                'password' => bcrypt('1111'),
                 'image' => '',
                 'status' => 1
             ],
