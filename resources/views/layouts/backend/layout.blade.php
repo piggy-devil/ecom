@@ -101,6 +101,9 @@
   <!-- Custom Admin Js -->
   <script src="{{ asset('backend/dist/js/admin.js') }}"></script>
 
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
   <!-- DataTables -->
   <script src="{{ asset('backend/plugins/datatables/jquery.dataTables.min.js') }}"></script>
   <script src="{{ asset('backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>

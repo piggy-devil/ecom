@@ -119,6 +119,7 @@ class CategoryController extends Controller
             $category->category_name = $data['category_name'];
             $category->category_discount = $data['category_discount'];
             $category->description = $data['description'];
+            $category->url = $data['url'];
             $category->meta_title = $data['meta_title'];
             $category->meta_description = $data['meta_description'];
             $category->meta_keywords = $data['meta_keywords'];
@@ -142,7 +143,7 @@ class CategoryController extends Controller
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
             $getCategories = Category::with('subcategories')->where(['section_id' => $data['section_id'], 'parent_id' => 0, 'status' => 1])->get();
-            $getCategories = json_decode(json_encode($getCategories), true);
+            // $getCategories = json_decode(json_encode($getCategories), true);
             // echo "<pre>"; print_r($getCategories); die;
             return view('admin.categories.append_categories_level')->with(compact('getCategories'));
         }
@@ -174,15 +175,19 @@ class CategoryController extends Controller
     {
         // Get Category Image
         $categoryImage = Category::select('category_image')->where('id', $id)->first();
+        // $categoryImage = json_decode(json_encode($categoryImage), true);
+        // echo "<pre>"; print_r($categoryImage); die;
 
-        // Get Category Image Path
-        $category_image_path = 'images/admin_images/category_images/';
-
-        // Delete Category image from category_images folder if exists
-        if(file_exists($category_image_path.$categoryImage->category_image)){
-            unlink($category_image_path.$categoryImage->category_image);
+        if($categoryImage['category_image'] != ''){
+            // Get Category Image Path
+            $category_image_path = 'images/admin_images/category_images/';
+    
+            // Delete Category image from category_images folder if exists
+            if(file_exists($category_image_path.$categoryImage->category_image)){
+                unlink($category_image_path.$categoryImage->category_image);
+            }
         }
-        
+
         // Delete Category
         Category::where('id', $id)->delete();
 
