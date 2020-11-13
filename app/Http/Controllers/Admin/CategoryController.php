@@ -147,4 +147,48 @@ class CategoryController extends Controller
             return view('admin.categories.append_categories_level')->with(compact('getCategories'));
         }
     }
+
+    public function deleteCategoryImage($id)
+    {
+        // Get Category Image
+        $categoryImage = Category::select('category_image')->where('id', $id)->first();
+
+        // Get Category Image Path
+        $category_image_path = 'images/admin_images/category_images/';
+
+        // Delete Category image from category_images folder if exists
+        if(file_exists($category_image_path.$categoryImage->category_image)){
+            unlink($category_image_path.$categoryImage->category_image);
+        }
+
+        // Delete Category Image from categories table
+        Category::where('id', $id)->update(['category_image' => '']);
+
+        $message = 'Category image has been deleted successfully!';
+        session::flash('success_message', $message);
+
+        return redirect()->back();
+    }
+
+    public function deleteCategory($id)
+    {
+        // Get Category Image
+        $categoryImage = Category::select('category_image')->where('id', $id)->first();
+
+        // Get Category Image Path
+        $category_image_path = 'images/admin_images/category_images/';
+
+        // Delete Category image from category_images folder if exists
+        if(file_exists($category_image_path.$categoryImage->category_image)){
+            unlink($category_image_path.$categoryImage->category_image);
+        }
+        
+        // Delete Category
+        Category::where('id', $id)->delete();
+
+        $message = 'Category has been deleted successfully!';
+        session::flash('success_message', $message);
+
+        return redirect()->back();
+    }
 }
