@@ -30,10 +30,16 @@
                 </ul>
             </div>
             @endif
-            <form name="categoryForm" id="CategoryForm" action="{{ url('admin/add-edit-category') }}" method="post" enctype="multipart/form-data">@csrf
+            <form name="categoryForm" id="CategoryForm" 
+                @if(empty($categorydata['id'])) 
+                    action="{{ url('admin/add-edit-category') }}" 
+                @else
+                    action="{{ url('admin/add-edit-category/'.$categorydata['id']) }}"
+                @endif
+                method="post" enctype="multipart/form-data">@csrf
                 <div class="card card-default">
                     <div class="card-header">
-                        <h3 class="card-title">Add Category</h3>
+                        <h3 class="card-title">{{ $title }}</h3>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
@@ -46,7 +52,9 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="category_name">Category Name</label>
-                                    <input type="text" class="form-control" id="category_name" name="category_name" placeholder="Enter Category Name">
+                                    <input type="text" class="form-control" id="category_name" name="category_name" placeholder="Enter Category Name"
+                                    @if(!empty($categorydata['category_name'])) value="{{ $categorydata['category_name'] }}"
+                                    @else value="{{ old('category_name') }}" @endif>
                                 </div>
                                 <div id="appendCategoriesLevel">
                                     @include('admin.categories.append_categories_level')
@@ -59,7 +67,9 @@
                                     <select name="section_id" id="section_id" class="form-control select2bs4" style="width: 100%;">
                                         <option value="">Select</option>
                                         @foreach($getSections as $section)
-                                        <option value="{{ $section->id }}">{{$section->name}}</option>
+                                        <option value="{{ $section->id }}" 
+                                            @if(!empty($categorydata['section_id']) && $categorydata['section_id'] == $section->id) selected 
+                                            @endif>{{$section->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -83,35 +93,51 @@
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
                                     <label for="category_discount">Category Discount</label>
-                                    <input type="text" class="form-control" id="category_discount" name="category_discount" placeholder="Enter Category Discount">
+                                    <input type="text" class="form-control" id="category_discount" name="category_discount" placeholder="Enter Category Discount"
+                                    @if(!empty($categorydata['category_discount'])) value="{{ $categorydata['category_discount'] }}"
+                                    @else value="{{ old('category_discount') }}" @endif>
                                 </div>
                                 <div class="form-group">
-                                    <label for="category_url">Category Description</label>
-                                    <textarea rows="3" class="form-control" id="description" name="description" placeholder="Enter ..."></textarea>
-                                </div>
-                            </div>
-
-                            <div class="col-12 col-sm-6">
-                                <div class="form-group">
-                                    <label for="category_url">Category URL</label>
-                                    <input type="text" class="form-control" id="url" name="url" placeholder="Enter Category URL">
-                                </div>
-                                <div class="form-group">
-                                    <label for="category_title">Meta Title</label>
-                                    <textarea rows="3" class="form-control" id="meta_title" name="meta_title" placeholder="Enter ..."></textarea>
+                                    <label for="description">Category Description</label>
+                                    <textarea rows="3" class="form-control" id="description" name="description" placeholder="Enter ...">
+                                        @if(!empty($categorydata['description'])) {{ $categorydata['description'] }}
+                                        @else {{ old('description') }}" @endif
+                                    </textarea>
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
-                                    <label for="category_description">Meta Description</label>
-                                    <textarea rows="3" class="form-control" id="meta_description" name="meta_description" placeholder="Enter ..."></textarea>
+                                    <label for="url">Category URL</label>
+                                    <input type="text" class="form-control" id="url" name="url" placeholder="Enter Category URL"
+                                    @if(!empty($categorydata['url'])) value="{{ $categorydata['url'] }}"
+                                    @else value="{{ old('url') }}" @endif>
+                                </div>
+                                <div class="form-group">
+                                    <label for="meta_title">Meta Title</label>
+                                    <textarea rows="3" class="form-control" id="meta_title" name="meta_title" placeholder="Enter ...">
+                                        @if(!empty($categorydata['meta_title'])) {{ $categorydata['meta_title'] }}
+                                        @else {{ old('meta_title') }}" @endif
+                                    </textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
+                                    <label for="meta_description">Meta Description</label>
+                                    <textarea rows="3" class="form-control" id="meta_description" name="meta_description" placeholder="Enter ...">
+                                        @if(!empty($categorydata['meta_description'])) {{ $categorydata['meta_description'] }}
+                                        @else {{ old('meta_description') }}" @endif
+                                    </textarea>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
-                                    <label for="category_keywords">Meta Keywords</label>
-                                    <textarea rows="3" class="form-control" id="meta_keywords" name="meta_keywords" placeholder="Enter ..."></textarea>
+                                    <label for="meta_keywords">Meta Keywords</label>
+                                    <textarea rows="3" class="form-control" id="meta_keywords" name="meta_keywords" placeholder="Enter ...">
+                                        @if(!empty($categorydata['meta_keywords'])) {{ $categorydata['meta_keywords'] }}
+                                        @else {{ old('meta_keywords') }}" @endif
+                                    </textarea>
                                 </div>
                             </div>
                         </div>
