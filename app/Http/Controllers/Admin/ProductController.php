@@ -236,4 +236,58 @@ class ProductController extends Controller
 
         return view('admin.products.add_edit_product')->with(compact('title', 'fabricArray', 'sleevArray', 'patternArray', 'fitArray', 'occasionArray', 'categories', 'productdata'));
     }
+
+    public function deleteProductImage($id)
+    {
+        // Get Product Image
+        $productImage = Product::select('product_image')->where('id', $id)->first();
+
+        // Get Product Image Paths
+        $small_image_path = 'images/admin_images/product_images/small/';
+        $medium_image_path = 'images/admin_images/product_images/medium/';
+        $large_image_path = 'images/admin_images/product_images/large/';
+
+        // Delete Product small image if exits in small folder
+        if(file_exists($small_image_path.$productImage->product_image)){
+            unlink($small_image_path.$productImage->product_image);
+        }
+        // Delete Product medium image if exits in medium folder
+        if(file_exists($medium_image_path.$productImage->product_image)){
+            unlink($medium_image_path.$productImage->product_image);
+        }
+        // Delete Product large image if exits in large folder
+        if(file_exists($large_image_path.$productImage->product_image)){
+            unlink($large_image_path.$productImage->product_image);
+        }
+
+        // Delete Product Image from categories table
+        product::where('id', $id)->update(['product_image' => '']);
+
+        $message = 'product image has been deleted successfully!';
+        session::flash('success_message', $message);
+
+        return redirect()->back();
+    }
+
+    public function deleteProductVideo($id)
+    {
+        // Get Product Image
+        $productVideo = Product::select('product_video')->where('id', $id)->first();
+
+        // Get Product Video Path
+        $product_video_path = 'videos/product_videos/';
+
+        // Delete product video from product_videos folder if exists
+        if(file_exists($product_video_path.$productVideo->product_video)){
+            unlink($product_video_path.$productVideo->product_video);
+        }
+
+        // Delete product video from categories table
+        product::where('id', $id)->update(['product_video' => '']);
+
+        $message = 'Product video has been deleted successfully!';
+        session::flash('success_message', $message);
+
+        return redirect()->back();
+    }
 }
