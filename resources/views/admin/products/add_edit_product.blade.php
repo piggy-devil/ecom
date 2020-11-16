@@ -56,6 +56,15 @@
                                     <label>Select Category</label>
                                     <select name="category_id" id="category_id" class="form-control select2bs4" style="width: 100%;">
                                         <option value="">Select</option>
+                                        @foreach($categories as $section)
+                                            <optgroup label="{{ $section['name'] }}"></optgroup>
+                                            @foreach($section['categories'] as $category)
+                                                <option value="{{ $category['id'] }}">&nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;{{ $category['category_name'] }}</option>
+                                                @foreach($category['subcategories'] as $subcategory)
+                                                    <option value="{{ $subcategory['id'] }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;{{ $subcategory['category_name'] }}</option>
+                                                @endforeach
+                                            @endforeach
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -141,6 +150,58 @@
                                     </textarea>
                                 </div>
                                 <div class="form-group">
+                                    <label>Select Fabric</label>
+                                    <select name="fabric" id="fabric" class="form-control select2bs4" style="width: 100%;">
+                                        <option value="">Select</option>
+                                        @foreach($fabricArray as $fabric)
+                                        <option value="{{ $fabric }}">{{ $fabric }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
+                                    <label>Select Sleeve</label>
+                                    <select name="sleeve" id="sleeve" class="form-control select2bs4" style="width: 100%;">
+                                        <option value="">Select</option>
+                                        @foreach($sleevArray as $sleeve)
+                                        <option value="{{ $sleeve }}">{{ $sleeve }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Select Pattern</label>
+                                    <select name="pattern" id="pattern" class="form-control select2bs4" style="width: 100%;">
+                                        <option value="">Select</option>
+                                        @foreach($patternArray as $pattern)
+                                        <option value="{{ $pattern }}">{{ $pattern }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
+                                    <label>Select Fit</label>
+                                    <select name="fit" id="fit" class="form-control select2bs4" style="width: 100%;">
+                                        <option value="">Select</option>
+                                        @foreach($fitArray as $fit)
+                                        <option value="{{ $fit }}">{{ $fit }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Select Occasion</label>
+                                    <select name="occasion" id="occasion" class="form-control select2bs4" style="width: 100%;">
+                                        <option value="">Select</option>
+                                        @foreach($occasionArray as $occasion)
+                                        <option value="{{ $occasion }}">{{ $occasion }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6">
+                                <div class="form-group">
                                     <label for="meta_title">Meta Title</label>
                                     <textarea rows="3" class="form-control" id="meta_title" name="meta_title" placeholder="Enter ...">
                                         @if(!empty($productdata['meta_title'])) {{ $productdata['meta_title'] }}
@@ -165,6 +226,10 @@
                                         @if(!empty($productdata['meta_keywords'])) {{ $productdata['meta_keywords'] }}
                                         @else {{ old('meta_keywords') }}" @endif
                                     </textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="meta_keywords">Featured Item</label>
+                                    <input type="checkbox" name="is_featured" id="is_featured" value="1">
                                 </div>
                             </div>
                         </div>
