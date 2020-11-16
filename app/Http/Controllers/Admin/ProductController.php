@@ -63,4 +63,22 @@ class ProductController extends Controller
 
         return redirect()->back();
     }
+
+    public function addEditProduct(Request $request, $id=null)
+    {
+        if($id == "") {
+            $title = "Add Product";
+        }else {
+            $title = "Edit Product";
+        }
+
+        // Filter Arrays
+        $fabricArray = array('Cotton', 'Polyester', 'Wool');
+        $sleeverray = array('Full Sleeve', 'Half Sleeve', 'Short Sleeve', 'Sleeveless');
+        $patternArray = array('Checked', 'Plain', 'Printed', 'Self', 'Solid');
+        $fitArray = array('Regular', 'Slim');
+        $occassionArray = array('Casual', 'Formal');
+
+        return view('admin.products.add_edit_product')->with(compact('title', 'fabricArray', 'sleeverray', 'patternArray', 'fitArray', 'occassionArray'));
+    }
 }
