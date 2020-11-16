@@ -59,17 +59,17 @@
                                         @foreach($categories as $section)
                                             <optgroup label="{{ $section['name'] }}"></optgroup>
                                             @foreach($section['categories'] as $category)
-                                                <option value="{{ $category['id'] }}">&nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;{{ $category['category_name'] }}</option>
+                                                <option value="{{ $category['id'] }}" @if(!empty(@old('category_id')) && $category['id'] == @old('category_id')) selected="" @endif>&nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;{{ $category['category_name'] }}</option>
                                                 @foreach($category['subcategories'] as $subcategory)
-                                                    <option value="{{ $subcategory['id'] }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;{{ $subcategory['category_name'] }}</option>
+                                                    <option value="{{ $subcategory['id'] }}" @if(!empty(@old('category_id')) && $subcategory['id'] == @old('category_id')) selected="" @endif>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;&nbsp;{{ $subcategory['category_name'] }}</option>
                                                 @endforeach
                                             @endforeach
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="product_color">Product Name</label>
-                                    <input type="text" class="form-control" id="product_color" name="product_color" placeholder="Enter P Name" @if(!empty($productdata['product_name'])) value="{{ $productdata['product_name'] }}" @else value="{{ old('product_name') }}" @endif>
+                                    <label for="product_name">Product Name</label>
+                                    <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Enter P Name" @if(!empty($productdata['product_name'])) value="{{ $productdata['product_name'] }}" @else value="{{ old('product_name') }}" @endif>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -229,7 +229,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="meta_keywords">Featured Item</label>
-                                    <input type="checkbox" name="is_featured" id="is_featured" value="1">
+                                    <input type="checkbox" name="is_featured" id="is_featured" value="Yes">
                                 </div>
                             </div>
                         </div>

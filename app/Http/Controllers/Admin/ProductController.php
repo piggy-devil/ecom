@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Product;
 use App\Models\Section;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -69,8 +70,101 @@ class ProductController extends Controller
     {
         if($id == "") {
             $title = "Add Product";
+            $product = new Product;
         }else {
             $title = "Edit Product";
+        }
+
+        if($request->isMethod('post')) {
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+
+            //Product Validations
+            $rules=[
+                'category_id'=>'required',
+                'product_name'=>'required|regex:/^[\pL\s\-]+$/u',
+                'product_code'=>'required|regex:/^[\w-]*$/',
+                'product_price'=>'required|numeric',
+                'product_color'=>'required|regex:/^[\pL\s\-]+$/u',
+            ];
+            $customMessages=[
+                'category_id.required'=>'Category is required',
+                'product_name.required'=>'Product Name is required',
+                'product_name.regex'=>'Valid Product Name is required',
+                'product_code.required'=>'Product Code is required',
+                'product_code.regex'=>'Valid Product Code is required',
+                'product_price.required'=>'Product Price is required',
+                'product_price.numeric'=>'Valid Product Price is required',
+                'product_color.required'=>'Product Color is required',
+                'product_color.regex'=>'Valid Product Color is required',
+            ];
+            $this->validate($request,$rules,$customMessages);
+
+            if(empty($data['is_featured'])){
+                $is_featured = "No";
+            }
+
+            if(empty($data['product_discount'])){
+                $data['product_discount'] = "";
+            }
+
+            if(empty($data['fabric'])){
+                $data['fabric'] = "";
+            }
+
+            if(empty($data['pattern'])){
+                $data['pattern'] = "";
+            }
+
+            if(empty($data['sleeve'])){
+                $data['sleeve'] = "";
+            }
+
+            if(empty($data['fit'])){
+                $data['fit'] = "";
+            }
+
+            if(empty($data['occasion'])){
+                $data['occasion'] = "";
+            }
+
+            if(empty($data['meta_title'])){
+                $data['meta_title'] = "";
+            }
+
+            if(empty($data['meta_keywords'])){
+                $data['meta_keywords'] = "";
+            }
+
+            if(empty($data['meta_description'])){
+                $data['meta_description'] = "";
+            }
+
+            // Save Product details in products table
+            $categoryDetails = Category::find($data['category_id']);
+            $product->section_id = $categoryDetails['section_id'];
+            $product->category_id = $data['category_id'];
+            $product->product_name = $data['product_name'];
+            $product->product_code = $data['product_code'];
+            $product->product_color = $data['product_color'];
+            $product->product_price = $data['product_price'];
+            $product->product_discount = $data['product_discount'];
+            $product->product_weight = $data['product_weight'];
+            $product->description = $data['description'];
+            $product->wash_care = $data['wash_care'];
+            $product->fabric = $data['fabric'];
+            $product->pattern = $data['pattern'];
+            $product->sleeve = $data['sleeve'];
+            $product->fit = $data['fit'];
+            $product->occasion = $data['occasion'];
+            $product->meta_title = $data['meta_title'];
+            $product->meta_keywords = $data['meta_keywords'];
+            $product->meta_description = $data['meta_description'];
+            $product->is_featured = $data['is_featured'];
+            $product->status = 1;
+            $product->save();
+            session::flash('success_message', 'Product added successfully!');
+            return redirect('admin/products');
         }
 
         // Filter Arrays
