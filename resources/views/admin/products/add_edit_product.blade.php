@@ -106,13 +106,14 @@
                                     <label>Product Main Image</label>
                                     <div class="input-group">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="main_image" name="main_image">
-                                            <label for="main_image" class="custom-file-label">Choose file</label>
+                                            <input type="file" class="custom-file-input" id="product_image" name="product_image">
+                                            <label for="product_image" class="custom-file-label">Choose file</label>
                                         </div>
                                         <div class="input-group-append">
                                             <span class="input-group-text" id="">Upload</span>
                                         </div>
                                     </div>
+                                    <div>Recommended Image Size: Width:1040px, Height:1200px</div>
                                 </div>
                             </div>
 
@@ -121,11 +122,11 @@
                         <div class="row">
                             <div class="col-12 col-sm-6">
                                 <div class="form-group">
-                                    <label for="product_weight">Product Video</label>
+                                    <label for="product_video">Product Video</label>
                                     <div class="input-group">
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="main_video" name="main_video">
-                                            <label for="main_video" class="custom-file-label">Choose file</label>
+                                            <input type="file" class="custom-file-input" id="product_video" name="product_video">
+                                            <label for="product_video" class="custom-file-label">Choose file</label>
                                         </div>
                                         <div class="input-group-append">
                                             <span class="input-group-text" id="">Upload</span>
@@ -228,7 +229,7 @@
                                     </textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="meta_keywords">Featured Item</label>
+                                    <label for="is_featured">Featured Item</label>
                                     <input type="checkbox" name="is_featured" id="is_featured" value="Yes">
                                 </div>
                             </div>
