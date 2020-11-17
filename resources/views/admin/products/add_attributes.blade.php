@@ -79,10 +79,10 @@
                                 <div class="form-group">
                                     <div class="field_wrapper">
                                         <div>
-                                            <input id="size" name="size[]" type="text" value="" placeholder="Size" style="width: 100px;" required/>
-                                            <input id="sku" name="sku[]" type="text" value="" placeholder="SKU" style="width: 100px;" required/>
-                                            <input id="price" name="price[]" type="number" value="" placeholder="Price" style="width: 100px;" required/>
-                                            <input id="stock" name="stock[]" type="number" value="" placeholder="Stock" style="width: 100px;" required/>
+                                            <input id="size" name="size[]" type="text" value="" placeholder="Size" style="width: 100px;" required />
+                                            <input id="sku" name="sku[]" type="text" value="" placeholder="SKU" style="width: 100px;" required />
+                                            <input id="price" name="price[]" type="number" value="" placeholder="Price" style="width: 100px;" required />
+                                            <input id="stock" name="stock[]" type="number" value="" placeholder="Stock" style="width: 100px;" required />
                                             <a href="javascript:void(0)" class="add_button" title="Add field">Add</a>
                                         </div>
                                     </div>
@@ -96,6 +96,40 @@
                     </div>
                 </div>
             </form>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Added Product Attributes</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="products" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Size</th>
+                                <th>SKU</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($productdata['attributes'] as $attribute)
+                            <tr>
+                                <td>{{ $attribute['id'] }}</td>
+                                <td>{{ $attribute['size'] }}</td>
+                                <td>{{ $attribute['sku'] }}</td>
+                                <td>{{ $attribute['price'] }}</td>
+                                <td>{{ $attribute['stock'] }}</td>
+                                <td></td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->

@@ -329,7 +329,9 @@ class ProductController extends Controller
             session::flash('success_message', $message);
             return redirect()->back();
         }
-        $productdata = Product::find($id);
+        $productdata = Product::select('id', 'product_name', 'product_code', 'product_color', 'product_image')->with('attributes')->find($id);
+        // $productdata = json_decode(json_encode($productdata), true);
+        // echo "<pre>"; print_r($productdata); die;
         $title = "Product Attributes";
         return view('admin.products.add_attributes')->with(compact('productdata', 'title'));
     }
