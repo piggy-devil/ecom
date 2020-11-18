@@ -79,7 +79,7 @@
                                 <div class="form-group">
                                     <div class="field_wrapper">
                                         <div>
-                                            <input multiple id="image" name="image[]" type="file" value="" required />
+                                            <input multiple id="images" name="images[]" type="file" value="" required />
                                         </div>
                                     </div>
                                 </div>
@@ -118,12 +118,12 @@
                                     </td>
                                     <td>
                                         @if($image['status']==1)
-                                        <a class="updateAttributeStatus" id="attribute-{{ $image['id'] }}" attribute_id="{{ $image['id'] }}" href="javascript:void(0)">Active</a>
+                                        <a class="updateImageStatus" id="image-{{ $image['id'] }}" image_id="{{ $image['id'] }}" href="javascript:void(0)">Active</a>
                                         @else
-                                        <a class="updateAttributeStatus" id="attribute-{{ $image['id'] }}" attribute_id="{{ $image['id'] }}" href="javascript:void(0)">Inactive</a>
+                                        <a class="updateImageStatus" id="image-{{ $image['id'] }}" image_id="{{ $image['id'] }}" href="javascript:void(0)">Inactive</a>
                                         @endif
                                         &nbsp;&nbsp;
-                                        <a title="Delete Attribute" href="javascrip:void(0)" class="confirmDelete" record="attribute" recordid="{{ $image['id'] }}"><i class="fas fa-trash"></i></a>
+                                        <a title="Delete Image" href="javascrip:void(0)" class="confirmDelete" record="image" recordid="{{ $image['id'] }}"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
