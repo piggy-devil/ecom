@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SectionController;
 
 /*
@@ -62,5 +63,8 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         Route::post('edit-attributes/{id?}', 'ProductController@editAttributes');
         Route::post('update-attribute-status', 'ProductController@updateAttributeStatus');
         Route::get('delete-attribute/{id}', 'ProductController@deleteAttribute');
+
+        // Images
+        Route::match(['get', 'post'], 'add-images/{id}', 'ProductController@addImages');
     });
 });

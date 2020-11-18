@@ -109,45 +109,41 @@ class ProductController extends Controller
             ];
             $this->validate($request,$rules,$customMessages);
 
-            if(empty($data['is_featured'])){
-                $data['is_featured'] = "No";
-            }
+            // if(empty($data['product_discount'])){
+            //     $data['product_discount'] = "";
+            // }
 
-            if(empty($data['product_discount'])){
-                $data['product_discount'] = "";
-            }
+            // if(empty($data['fabric'])){
+            //     $data['fabric'] = "";
+            // }
 
-            if(empty($data['fabric'])){
-                $data['fabric'] = "";
-            }
+            // if(empty($data['pattern'])){
+            //     $data['pattern'] = "";
+            // }
 
-            if(empty($data['pattern'])){
-                $data['pattern'] = "";
-            }
+            // if(empty($data['sleeve'])){
+            //     $data['sleeve'] = "";
+            // }
 
-            if(empty($data['sleeve'])){
-                $data['sleeve'] = "";
-            }
+            // if(empty($data['fit'])){
+            //     $data['fit'] = "";
+            // }
 
-            if(empty($data['fit'])){
-                $data['fit'] = "";
-            }
+            // if(empty($data['occasion'])){
+            //     $data['occasion'] = "";
+            // }
 
-            if(empty($data['occasion'])){
-                $data['occasion'] = "";
-            }
+            // if(empty($data['meta_title'])){
+            //     $data['meta_title'] = "";
+            // }
 
-            if(empty($data['meta_title'])){
-                $data['meta_title'] = "";
-            }
+            // if(empty($data['meta_keywords'])){
+            //     $data['meta_keywords'] = "";
+            // }
 
-            if(empty($data['meta_keywords'])){
-                $data['meta_keywords'] = "";
-            }
-
-            if(empty($data['meta_description'])){
-                $data['meta_description'] = "";
-            }
+            // if(empty($data['meta_description'])){
+            //     $data['meta_description'] = "";
+            // }
 
             // Upload Product Image
             if($request->hasFile('product_image')) {
@@ -195,7 +191,7 @@ class ProductController extends Controller
                     $product->product_video = $videoName;
                 }
             }
-
+            
             // Save Product details in products table
             $categoryDetails = Category::find($data['category_id']);
             $product->section_id = $categoryDetails['section_id'];
@@ -216,7 +212,11 @@ class ProductController extends Controller
             $product->meta_title = $data['meta_title'];
             $product->meta_keywords = $data['meta_keywords'];
             $product->meta_description = $data['meta_description'];
-            $product->is_featured = $data['is_featured'];
+            if(!empty($data['is_featured'])){
+                $product->is_featured = $data['is_featured'];
+            }else {
+                $product->is_featured = "No";
+            }
             $product->status = 1;
             $product->save();
             session::flash('success_message', $message);
@@ -378,5 +378,14 @@ class ProductController extends Controller
         session::flash('success_message', $message);
 
         return redirect()->back();
+    }
+
+    public function addImages($id)
+    {
+        $productdata = Product::with('images')->select('id', 'product_name', 'product_code', 'product_color', 'product_image')->find($id);
+        $productdata = json_decode(json_encode($productdata), true);
+        // echo "<pre>"; print_r($productdata); die;
+        $title = "Product Images";
+        return view('admin.products.add_images')->with(compact('productdata', 'title'));
     }
 }
