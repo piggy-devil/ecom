@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Section;
 use App\Models\Category;
@@ -91,6 +92,7 @@ class ProductController extends Controller
 
             //Product Validations
             $rules=[
+                'brand_id'=>'required',
                 'category_id'=>'required',
                 'product_name'=>'required|regex:/^[\pL\s\-]+$/u',
                 'product_code'=>'required|regex:/^[\w-]*$/',
@@ -99,6 +101,7 @@ class ProductController extends Controller
             ];
             $customMessages=[
                 'category_id.required'=>'Category is required',
+                'brand_id.required'=>'Brand is required',
                 'product_name.required'=>'Product Name is required',
                 'product_name.regex'=>'Valid Product Name is required',
                 'product_code.required'=>'Product Code is required',
@@ -196,6 +199,7 @@ class ProductController extends Controller
             // Save Product details in products table
             $categoryDetails = Category::find($data['category_id']);
             $product->section_id = $categoryDetails['section_id'];
+            $product->brand_id = $data['brand_id'];
             $product->category_id = $data['category_id'];
             $product->product_name = $data['product_name'];
             $product->product_code = $data['product_code'];
@@ -236,7 +240,10 @@ class ProductController extends Controller
         $categories = json_decode(json_encode($categories), true);
         // echo "<pre>"; print_r($categories); die;
 
-        return view('admin.products.add_edit_product')->with(compact('title', 'fabricArray', 'sleevArray', 'patternArray', 'fitArray', 'occasionArray', 'categories', 'productdata'));
+        // Get All Brands
+        $brands = Brand::where('status', 1)->get();
+
+        return view('admin.products.add_edit_product')->with(compact('title', 'fabricArray', 'sleevArray', 'patternArray', 'fitArray', 'occasionArray', 'categories', 'productdata', 'brands'));
     }
 
     public function deleteProductImage($id)

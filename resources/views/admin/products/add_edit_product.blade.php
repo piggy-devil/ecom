@@ -68,24 +68,35 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="product_name">Product Name</label>
-                                    <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Enter P Name" @if(!empty($productdata['product_name'])) value="{{ $productdata['product_name'] }}" @else value="{{ old('product_name') }}" @endif>
+                                    <label>Select Brand</label>
+                                    <select name="brand_id" id="brand_id" class="form-control select2bs4" style="width: 100%;">
+                                        <option value="">Select</option>
+                                        @foreach($brands as $brand)
+                                        <option value="{{ $brand['id'] }}" @if(!empty($productdata['brand_id'] && $productdata['brand_id']==$brand['id'])) selected @endif>{{ $brand['name'] }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
+
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <div class="form-group">
+                                        <label for="product_name">Product Name</label>
+                                        <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Enter P Name" @if(!empty($productdata['product_name'])) value="{{ $productdata['product_name'] }}" @else value="{{ old('product_name') }}" @endif>
+                                    </div>
                                     <div class="form-group">
                                         <label for="product_code">Product Code</label>
                                         <input type="text" class="form-control" id="product_code" name="product_code" placeholder="Enter Product Code" @if(!empty($productdata['product_code'])) value="{{ $productdata['product_code'] }}" @else value="{{ old('product_code') }}" @endif>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="product_color">Product Color</label>
-                                        <input type="text" class="form-control" id="product_color" name="product_color" placeholder="Enter Product Color" @if(!empty($productdata['product_color'])) value="{{ $productdata['product_color'] }}" @else value="{{ old('product_color') }}" @endif>
-                                    </div>
+                                    
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
+                                <div class="form-group">
+                                        <label for="product_color">Product Color</label>
+                                        <input type="text" class="form-control" id="product_color" name="product_color" placeholder="Enter Product Color" @if(!empty($productdata['product_color'])) value="{{ $productdata['product_color'] }}" @else value="{{ old('product_color') }}" @endif>
+                                    </div>
                                     <div class="form-group">
                                         <label for="product_price">Product Price</label>
                                         <input type="text" class="form-control" id="product_price" name="product_price" placeholder="Enter Product Price" @if(!empty($productdata['product_price'])) value="{{ $productdata['product_price'] }}" @else value="{{ old('product_price') }}" @endif>
@@ -140,10 +151,10 @@
                                         </div>
                                     </div>
                                     @if(!empty($productdata['product_video']))
-                                        <div><a href="{{ url('videos/product_videos/'.$productdata['product_video']) }} " download>Download</a>
+                                    <div><a href="{{ url('videos/product_videos/'.$productdata['product_video']) }} " download>Download</a>
                                         &nbsp;|&nbsp;
                                         <a class="confirmDelete" href="javascript:void(0)" record="product-video" recordid="{{ $productdata['id'] }}">Delete Video</a>
-                                        </div>
+                                    </div>
                                     @endif
                                 </div>
                                 <div class="form-group">
