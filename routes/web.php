@@ -17,9 +17,9 @@ use App\Http\Controllers\Admin\SectionController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
@@ -76,4 +76,8 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         Route::get('delete-image/{id}', 'ProductController@deleteImage');
         
     });
+});
+
+Route::namespace('App\Http\Controllers\Front')->group(function(){
+    Route::get('/', 'IndexController@index');
 });

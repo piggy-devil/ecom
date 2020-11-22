@@ -2,6 +2,7 @@
 /public/hot
 /public/storage
 /public/backend
+/public/frontend
 /public/images
 /public/videos
 /storage/*.key
