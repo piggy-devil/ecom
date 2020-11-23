@@ -72,7 +72,12 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <?php $product_image_path = "images/admin_images/product_images/small/" . $productdata['product_image']; ?>
+                                    @if(!empty($productdata['product_image']) && file_exists($product_image_path))
                                     <img style="width: 120px;" src="{{ asset('images/admin_images/product_images/small/'.$productdata['product_image']) }}">
+                                    @else
+                                    <img style="width: 120px;" src="{{ asset('images/admin_images/product_images/small/no-image.png') }}">
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-md-6">
