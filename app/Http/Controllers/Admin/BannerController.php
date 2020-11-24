@@ -2,17 +2,70 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Support\Facades\Session;
 use App\Models\Banner;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Session;
 
 class BannerController extends Controller
 {
     public function banners()
     {
+        Session::put('page', 'banners');
         $banners = Banner::get()->toArray();
         return view('admin.banners.banners')->with(compact('banners'));
+    }
+
+    public function addEditBanner(Request $request, $id=null)
+    {
+        if($id == "") {
+            // Add Banner
+            $bannerdata = new Banner;
+            $title = "Add Banner Image";
+            $message = "Banner added successfully!";
+        }else {
+            // Edit Banner
+            $bannerdata = Banner::find($id);
+            $title = "Edit Banner Image";
+            $message = "Banner added successfully!";
+        }
+
+        if($request->isMethod('post')) {
+            $data = $request->all();
+            $bannerdata->link = $data['link'];
+            $bannerdata->title = $data['title'];
+            $bannerdata->alt = $data['alt'];
+
+            // Upload Product Image
+            if($request->hasFile('image')) {
+                $image_tmp = $request->file('image');
+                if($image_tmp->isValid()){
+                    
+                    // Get Original Image Name
+                    $image_name = $image_tmp->getClientOriginalName();
+                    // Get Image Extension
+                    $extension = $image_tmp->getClientOriginalExtension();
+                    // Generate New Image Name
+                    $imageName = $image_name.'-'.rand(111,99999).'.'.$extension;
+
+                    // Set Paths for images
+                    $banner_image_path = 'images/admin_images/banner_images/'.$imageName;
+
+                    // Upload Banner Image after Resize
+                    Image::make($image_tmp)->resize(1170, 480)->save($banner_image_path);
+
+                    // Save Banner Image in banner table
+                    $bannerdata->image = $imageName;
+                }
+            }
+            $bannerdata->save();
+            session::flash('success_message', $message);
+            return redirect('admin/banners');
+
+        }
+
+        return view('admin.banners.add_edit_banner')->with(compact('title', 'bannerdata'));
     }
 
     public function updateBannerStatus(Request $request)

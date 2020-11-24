@@ -77,6 +77,7 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         
         // Banners
         Route::get('banners', 'BannerController@banners');
+        Route::match(['get', 'post'], 'add-edit-banner/{id?}', 'BannerController@addEditBanner');
         Route::post('update-banner-status', 'BannerController@updateBannerStatus');
         Route::get('delete-banner/{id}', 'BannerController@deleteBanner');
         
