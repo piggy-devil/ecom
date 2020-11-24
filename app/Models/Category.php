@@ -24,20 +24,20 @@ class Category extends Model
         return $this->belongsTo('App\Models\Category', 'parent_id')->select('id', 'category_name');
     }
 
-    public static function categoryDetails($url)
+    public static function catDetails($url)
     {
-        $categoryDetails = Category::select('id', 'category_name', 'url')
+        $catDetails = Category::select('id', 'category_name', 'url')
             ->with(['subcategories' => function($query){
                 $query->select('id', 'parent_id')->where('status', 1);
             }])
             ->where('url', $url)->first()->toArray();
 
         $catIds = array();
-        $catIds[] = $categoryDetails['id'];
-        foreach($categoryDetails['subcategories'] as $key => $subcat){
+        $catIds[] = $catDetails['id'];
+        foreach($catDetails['subcategories'] as $key => $subcat){
             $catIds[] = $subcat['id'];
         }
 
-        return array('catIds' => $catIds, 'categoryDetails' => $categoryDetails);
+        return array('catIds' => $catIds, 'catDetails' => $catDetails);
     }
 }
