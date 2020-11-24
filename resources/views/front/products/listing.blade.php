@@ -11,14 +11,16 @@
         {{ $categoryDetails['catDetails']['description'] }}
     </p>
     <hr class="soft" />
-    <form class="form-horizontal span6">
+    <form name="sortProducts" id="sortProducts" class="form-horizontal span6">
         <div class="control-group">
             <label class="control-label alignL">Sort By </label>
-            <select>
-                <option>Product name A - Z</option>
-                <option>Product name Z - A</option>
-                <option>Product Stoke</option>
-                <option>Price Lowest first</option>
+            <select name="sort" id="sort">
+                <option value="">Select</option>
+                <option value="product_latest" @if(isset($_GET['sort']) && $_GET['sort']=="product_latest" ) selected @endif>Latest Products</option>
+                <option value="product_name_a_z" @if(isset($_GET['sort']) && $_GET['sort']=="product_name_a_z" ) selected @endif>Product name A - Z</option>
+                <option value="product_name_z_a" @if(isset($_GET['sort']) && $_GET['sort']=="product_name_z_a" ) selected @endif>Product name Z - A</option>
+                <option value="price_lowest" @if(isset($_GET['sort']) && $_GET['sort']=="price_lowest" ) selected @endif>Lowest Price first</option>
+                <option value="price_highest" @if(isset($_GET['sort']) && $_GET['sort']=="price_highest" ) selected @endif>Highest Price first</option>
             </select>
         </div>
     </form>
@@ -33,9 +35,11 @@
             @foreach($categoryProducts as $product)
             <div class="row">
                 <div class="span2">
-                    <?php
-                    $product_image_path = 'images/admin_images/product_images/small/' . $product['product_image'];
-                    ?>
+                    @if(isset($product['product_image']))
+                    <?php $product_image_path = 'images/admin_images/product_images/small/' . $product['product_image']; ?>
+                    @else
+                    <?php $product_image_path = ''; ?>
+                    @endif
                     @if(!empty($product['product_image']) && file_exists($product_image_path))
                     <img style="width: 150px;" src="{{ url($product_image_path) }}" alt="">
                     @else
@@ -99,15 +103,11 @@
     </div>
     <a href="compair.html" class="btn btn-large pull-right">Compair Product</a>
     <div class="pagination">
-        <ul>
-            <li><a href="#">&lsaquo;</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">...</a></li>
-            <li><a href="#">&rsaquo;</a></li>
-        </ul>
+        @if(isset($_GET['sort']) && !empty($_GET['sort']))
+            {{ $categoryProducts->appends(['sort' => $_GET['sort']])->links() }}
+        @else
+            {{ $categoryProducts->links() }}
+        @endif
     </div>
     <br class="clr" />
 </div>

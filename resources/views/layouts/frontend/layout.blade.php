@@ -47,6 +47,7 @@
 	<script src="{{ asset('frontend/themes/js/google-code-prettify/prettify.js') }}"></script>
 
 	<script src="{{ asset('frontend/themes/js/front.js') }}"></script>
+	<script src="{{ asset('frontend/themes/js/frontCustom.js') }}"></script>
 	<script src="{{ asset('frontend/themes/js/jquery.lightbox-0.5.js') }}"></script>
 
 </body>
