@@ -90,16 +90,12 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
     Route::get('/', 'IndexController@index');
 
     // Listing/Categories Route
-    // Route::get('/{url}', 'ProductController@listing');
-
-    // Get Category Url's
     $catUrls = Category::select('url')->where('status', 1)->get()->pluck('url')->toArray();
-
     foreach($catUrls as $url) {
         Route::get('/'.$url, 'ProductController@listing');
     }
 
-    Route::get('/contact-us', function(){
-        echo "test"; die;
-    });
+    // Product Detail Route
+    Route::get('/product/{code}/{id}', 'ProductController@detail');
+
 });

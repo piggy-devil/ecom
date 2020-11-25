@@ -7,11 +7,13 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Pagination\Paginator;
 
 class ProductController extends Controller
 {
     public function listing(Request $request)
     {
+        Paginator::useBootstrap();
         if($request->ajax()){
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
@@ -80,5 +82,10 @@ class ProductController extends Controller
                 abort(404);
             }
         }
+    }
+
+    public function detail($code, $id)
+    {
+        return view('front.products.detail');
     }
 }
