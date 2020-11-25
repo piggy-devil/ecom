@@ -6,10 +6,11 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Route;
 
 class ProductController extends Controller
 {
-    public function listing($url, Request $request)
+    public function listing(Request $request)
     {
         if($request->ajax()){
             $data = $request->all();
@@ -56,6 +57,7 @@ class ProductController extends Controller
             }
 
         }else {
+            $url = Route::getFacadeRoot()->current()->uri();
             $categoryCount = Category::where(['url' => $url, 'status' => 1])->count();
             if($categoryCount > 0) {
                 $categoryDetails = Category::catDetails($url);

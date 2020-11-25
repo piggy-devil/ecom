@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
@@ -89,5 +90,16 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
     Route::get('/', 'IndexController@index');
 
     // Listing/Categories Route
-    Route::get('/{url}', 'ProductController@listing');
+    // Route::get('/{url}', 'ProductController@listing');
+
+    // Get Category Url's
+    $catUrls = Category::select('url')->where('status', 1)->get()->pluck('url')->toArray();
+
+    foreach($catUrls as $url) {
+        Route::get('/'.$url, 'ProductController@listing');
+    }
+
+    Route::get('/contact-us', function(){
+        echo "test"; die;
+    });
 });
