@@ -99,7 +99,7 @@
   <script src="{{ asset('backend/dist/js/demo.js') }}"></script>
 
   <!-- Custom Admin Js -->
-  <script src="{{ asset('backend/dist/js/admin.js') }}"></script>
+  <script src="{{ asset('js/admin.js') }}"></script>
 
   <!-- SweetAlert2 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

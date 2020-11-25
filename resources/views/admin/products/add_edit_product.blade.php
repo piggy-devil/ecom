@@ -72,7 +72,7 @@
                                     <select name="brand_id" id="brand_id" class="form-control select2bs4" style="width: 100%;">
                                         <option value="">Select</option>
                                         @foreach($brands as $brand)
-                                        <option value="{{ $brand['id'] }}" @if(!empty($productdata['brand_id'] && $productdata['brand_id']==$brand['id'])) selected @endif>{{ $brand['name'] }}</option>
+                                        <option value="{{ $brand['id'] }}" @if(!empty($productdata['brand_id']) && $productdata['brand_id']==$brand['id']) selected @endif>{{ $brand['name'] }}</option>
                                         @endforeach
                                     </select>
                                 </div>
