@@ -8,20 +8,17 @@
     </ul>
     <div class="row">
         <div id="gallery" class="span3">
-            <a href="{{ url('frontend/themes/images/products/large/f1.jpg') }}" title="Blue Casual T-Shirt">
-                <img src="{{ url('frontend/themes/images/products/large/3.jpg') }}" style="width:100%" alt="Blue Casual T-Shirt" />
+            <a href="{{ url('images/admin_images/product_images/large/'.$productDetails['product_image']) }}" title="Blue Casual T-Shirt">
+                <img src="{{ url('images/admin_images/product_images/large/'.$productDetails['product_image']) }}" style="width:100%" alt="Blue Casual T-Shirt" />
             </a>
             <div id="differentview" class="moreOptopm carousel slide">
                 <div class="carousel-inner">
                     <div class="item active">
-                        <a href="{{ url('frontend/themes/images/products/large/f1.jpg') }}"> <img style="width:29%" src="{{ url('frontend/themes/images/products/large/f1.jpg') }}" alt="" /></a>
-                        <a href="{{ url('frontend/themes/images/products/large/f2.jpg') }}"> <img style="width:29%" src="{{ url('frontend/themes/images/products/large/f2.jpg') }}" alt="" /></a>
-                        <a href="{{ url('frontend/themes/images/products/large/f3.jpg') }}"> <img style="width:29%" src="{{ url('frontend/themes/images/products/large/f3.jpg') }}" alt="" /></a>
-                    </div>
-                    <div class="item">
-                        <a href="{{ url('frontend/themes/images/products/large/f3.jpg') }}"> <img style="width:29%" src="{{ url('frontend/themes/images/products/large/f3.jpg') }}" alt="" /></a>
-                        <a href="{{ url('frontend/themes/images/products/large/f1.jpg') }}"> <img style="width:29%" src="{{ url('frontend/themes/images/products/large/f1.jpg') }}" alt="" /></a>
-                        <a href="{{ url('frontend/themes/images/products/large/f2.jpg') }}"> <img style="width:29%" src="{{ url('frontend/themes/images/products/large/f2.jpg') }}" alt="" /></a>
+                        @foreach($productDetails['images'] as $image)
+                        <a href="{{ url('images/admin_images/product_images/large/'.$image['image']) }}"> 
+                            <img style="width:29%" src="{{ url('images/admin_images/product_images/large/'.$image['image']) }}" alt="" />
+                        </a>
+                        @endforeach
                     </div>
                 </div>
                 <!--
@@ -45,7 +42,7 @@
             <h3>{{ $productDetails['product_name'] }}</h3>
             <small>- {{ $productDetails['brand']['name'] }}</small>
             <hr class="soft" />
-            <small>100 items in stock</small>
+            <small>{{ $total_stock }} items in stock</small>
             <form class="form-horizontal qtyFrm">
                 <div class="control-group">
                     <h4>Rs.{{ $productDetails['product_price'] }}</h4>

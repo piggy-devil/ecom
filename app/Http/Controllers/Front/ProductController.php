@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\ProductAttribute;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Pagination\Paginator;
 
@@ -88,6 +89,7 @@ class ProductController extends Controller
     {
         $productDetails = Product::with('category','brand','attributes','images')->find($id)->toArray();
         // dd($productDetails);
-        return view('front.products.detail')->with(compact('productDetails'));
+        $total_stock = ProductAttribute::where('product_id', $id)->sum('stock');
+        return view('front.products.detail')->with(compact('productDetails', 'total_stock'));
     }
 }
