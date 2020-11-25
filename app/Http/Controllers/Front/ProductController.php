@@ -84,8 +84,10 @@ class ProductController extends Controller
         }
     }
 
-    public function detail($code, $id)
+    public function detail($id)
     {
-        return view('front.products.detail');
+        $productDetails = Product::with('category','brand','attributes','images')->find($id)->toArray();
+        // dd($productDetails);
+        return view('front.products.detail')->with(compact('productDetails'));
     }
 }

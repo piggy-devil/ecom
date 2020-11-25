@@ -189,7 +189,7 @@
                                     <label>Select Sleeve</label>
                                     <select name="sleeve" id="sleeve" class="form-control select2bs4" style="width: 100%;">
                                         <option value="">Select</option>
-                                        @foreach($sleevArray as $sleeve)
+                                        @foreach($sleeveArray as $sleeve)
                                         <option value="{{ $sleeve }}" @if(!empty($productdata['sleeve']) && $productdata['sleeve']==$sleeve) selected @endif>{{ $sleeve }}</option>
                                         @endforeach
                                     </select>
