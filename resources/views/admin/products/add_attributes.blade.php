@@ -64,10 +64,13 @@
                                     <label for="product_name">Product Name:</label> &nbsp; {{ $productdata['product_name'] }}
                                 </div>
                                 <div class="form-group">
-                                    <label for="product_name">Product Code:</label> &nbsp; {{ $productdata['product_code'] }}
+                                    <label for="product_code">Product Code:</label> &nbsp; {{ $productdata['product_code'] }}
                                 </div>
                                 <div class="form-group">
-                                    <label for="product_name">Product Color:</label> &nbsp; {{ $productdata['product_color'] }}
+                                    <label for="product_color">Product Color:</label> &nbsp; {{ $productdata['product_color'] }}
+                                </div>
+                                <div class="form-group">
+                                    <label for="product_price">Product Price:</label> &nbsp; {{ $productdata['product_price'] }}
                                 </div>
                             </div>
                             <div class="col-md-6">

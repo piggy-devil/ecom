@@ -184,7 +184,7 @@
                             @foreach($relatedProducts as $product)
                             <li class="span3">
                                 <div class="thumbnail">
-                                    <a href="product_details.html">
+                                    <a href="{{ url('/product/'.$product['id']) }}">
                                         <?php
                                         $product_image_path = 'images/admin_images/product_images/small/' . $product['product_image'];
                                         ?>
