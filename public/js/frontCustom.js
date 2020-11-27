@@ -75,8 +75,8 @@ $(document).ready(function(){
             type:'post',
             success:function(resp){
                 $(".getAttrPrice").html("Rs. "+resp);
-                if(resp['discounted_price'] > 0){
-                    $(".getAttrPrice").html("<del>Rs. "+resp['product_price']+"</del> Rs."+resp['discounted_price']);
+                if(resp['discount'] > 0){
+                    $(".getAttrPrice").html("<del>Rs. "+resp['product_price']+"</del> Rs."+resp['final_price']);
                 }else{
                     $(".getAttrPrice").html("Rs. "+resp['product_price']);
                 }
