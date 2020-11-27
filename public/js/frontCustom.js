@@ -74,8 +74,12 @@ $(document).ready(function(){
             data:{size:size, product_id:product_id},
             type:'post',
             success:function(resp){
-                // alert(resp);
                 $(".getAttrPrice").html("Rs. "+resp);
+                if(resp['discounted_price'] > 0){
+                    $(".getAttrPrice").html("<del>Rs. "+resp['product_price']+"</del> Rs."+resp['discounted_price']);
+                }else{
+                    $(".getAttrPrice").html("Rs. "+resp['product_price']);
+                }
             },
             error:function(){
                 alert("Error");
