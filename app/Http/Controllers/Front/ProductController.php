@@ -175,9 +175,63 @@ class ProductController extends Controller
         if($request->ajax()){
             $data = $request->all();
             // echo "<pre>"; print_r($data); die;
+            // Get Available Product Stock
+            // $avaiableStock = ProductAttribute::select('stock')->where(['product_id' => $cart])
+
+            // Get Cart Details
+            $cartDetails = Cart::find($data['cartid']);
+
+            // Get Available Product Stock
+            $availableStock = ProductAttribute::select('stock')
+                ->where(['product_id' =>$cartDetails['product_id'], 'size' => $cartDetails['size']])
+                ->first()->toArray();
+            
+            // dd($availableStock);
+
+            $userCartItems = Cart::userCartItems();
+            // Check Stock is available or not
+            if($data['qty'] > $availableStock['stock']){
+                $userCartItems = Cart::userCartItems();
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Product Stock is not available',
+                    'view' => (String)View::make('front.products.cart_item')->with(compact('userCartItems'))
+                ]);
+            }
+
+            // Check Size Available
+            $availableSize = ProductAttribute::where([
+                'product_id' => $cartDetails['product_id'], 
+                'size' => $cartDetails['size'], 
+                'status' => 1])->count();
+            if($availableSize == 0){
+                $userCartItems = Cart::userCartItems();
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Product Size is not available',
+                    'view' => (String)View::make('front.products.cart_item')->with(compact('userCartItems'))
+                ]);
+            }
+
             Cart::where('id', $data['cartid'])->update(['quantity' => $data['qty']]);
             $userCartItems = Cart::userCartItems();
-            return response()->json(['view' => (String)View::make('front.products.cart_item')->with(compact('userCartItems'))]);
+            return response()->json([
+                'status' => true,
+                'message' => 'Product Stock is not available',
+                'view' => (String)View::make('front.products.cart_item')->with(compact('userCartItems'))
+            ]);
+        }
+    }
+
+    public function deleteCartItem(Request $request)
+    {
+        if($request->ajax()){
+            $data = $request->all();
+            Cart::where('id', $data['cartid'])->delete();
+            $userCartItems = Cart::userCartItems();
+            return response()->json([
+                'view' => (String)View::make('front.products.cart_item')->with(compact('userCartItems'))
+            ]);
         }
     }
 }
