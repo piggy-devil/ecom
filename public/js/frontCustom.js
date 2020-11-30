@@ -13,7 +13,6 @@ $(document).ready(function(){
         var fabric = get_filter('fabric');
         var sleeve = get_filter('sleeve');
         var url = $("#url").val();
-        // alert(sort);
         $.ajax({
             url: url,
             method: "post",
@@ -85,5 +84,35 @@ $(document).ready(function(){
                 alert("Error");
             }
         }) 
+    });
+
+    // Update Cart Items
+    $(document).on('click', '.btnItemUpdate', function(){
+        if($(this).hasClass('qtyMinus')){
+            // if qtyMinus button gets clicked by User
+            var quantity = $(this).prev().val();
+            if(quantity <= 1){
+                alert("Item quantity must be 1 or greater!");
+                return false;
+            }else{
+                new_qty = parseInt(quantity) - 1;
+            }
+        }
+        if($(this).hasClass('qtyPlus')){
+            // if qtyPlus button gets clicked by User
+            var quantity = $(this).prev().prev().val();
+            new_qty = parseInt(quantity) + 1;
+        }
+        var cartid = $(this).attr('data_cartid');
+        $.ajax({
+            data:{"cartid":cartid, "qty": new_qty},
+            url:'/update-cart-item-qty',
+            type:'post',
+            success:function(resp){
+                $("#AppendCartItems").html(resp.view);
+            }, error:function(){
+                alert("Error");
+            }
+        })
     });
 });

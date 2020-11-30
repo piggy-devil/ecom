@@ -10,6 +10,7 @@ use App\Models\ProductAttribute;
 use App\Http\Controllers\Controller;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -167,5 +168,16 @@ class ProductController extends Controller
         $userCartItems = Cart::userCartItems();
         // dd($userCartItems);
         return view('front.products.cart')->with(compact('userCartItems'));
+    }
+
+    public function updateCartItemQty(Request $request)
+    {
+        if($request->ajax()){
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            Cart::where('id', $data['cartid'])->update(['quantity' => $data['qty']]);
+            $userCartItems = Cart::userCartItems();
+            return response()->json(['view' => (String)View::make('front.products.cart_item')->with(compact('userCartItems'))]);
+        }
     }
 }

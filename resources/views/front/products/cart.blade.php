@@ -1,6 +1,3 @@
-<?php
-
-use App\Models\Product; ?>
 @extends('layouts.frontend.layout')
 @section('content')
 <div class="span9">
@@ -59,62 +56,9 @@ use App\Models\Product; ?>
         </button>
     </div>
     @endif
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th colspan="2">Description</th>
-                <th>Quantity/Update</th>
-                <th>MRP</th>
-                <th>Category/Product Discount</th>
-                <th>Sub Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php $total_price = 0; ?>
-            @foreach($userCartItems as $item)
-            <?php
-            $attrPrice = Product::getDiscountedAttrPrice($item['product_id'], $item['size']);
-            ?>
-            <tr>
-                <td>
-                    <img width="60" src="{{ url('images/admin_images/product_images/small/'.$item['product']['product_image']) }}" alt="" />
-                </td>
-                <td colspan="2">
-                    {{ $item['product']['product_name'] }} ({{ $item['product']['product_name'] }})<br />
-                    Color : {{ $item['product']['product_color'] }}<br />
-                    Size : {{ $item['size'] }}
-                </td>
-                <td>
-                    <div class="input-append">
-                        <input class="span1" style="max-width:34px" value="{{ $item['quantity'] }}" id="appendedInputButtons" size="16" type="text">
-                        <button class="btn" type="button"><i class="icon-minus"></i></button>
-                        <button class="btn" type="button"><i class="icon-plus"></i></button>
-                        <button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>
-                    </div>
-                </td>
-                <td>Rs.{{ $attrPrice['product_price'] }}</td>
-                <td>Rs.{{ $attrPrice['discount'] }}</td>
-                <td>Rs.{{ $attrPrice['final_price'] * $item['quantity'] }}</td>
-            </tr>
-            <?php $total_price = $total_price + ($attrPrice['final_price'] * $item['quantity']); ?>
-            @endforeach
-
-            <tr>
-                <td colspan="6" style="text-align:right">Sub Total: </td>
-                <td> Rs.{{ $total_price }}</td>
-            </tr>
-            <tr>
-                <td colspan="6" style="text-align:right">Voucher Discount: </td>
-                <td> Rs.0.00</td>
-            </tr>
-            <tr>
-                <td colspan="6" style="text-align:right"><strong>GRAND TOTAL (Rs.{{ $total_price }} - Rs.0 + Rs.0) =</strong></td>
-                <td class="label label-important" style="display:block"> <strong> Rs.{{ $total_price }} </strong></td>
-            </tr>
-        </tbody>
-    </table>
-
+    <div id="AppendCartItems">
+        @include('front.products.cart_item')
+    </div>
 
     <table class="table table-bordered">
         <tbody>
@@ -134,33 +78,6 @@ use App\Models\Product; ?>
 
         </tbody>
     </table>
-
-    <!-- <table class="table table-bordered">
-			 <tr><th>ESTIMATE YOUR SHIPPING </th></tr>
-			 <tr> 
-			 <td>
-				<form class="form-horizontal">
-				  <div class="control-group">
-					<label class="control-label" for="inputCountry">Country </label>
-					<div class="controls">
-					  <input type="text" id="inputCountry" placeholder="Country">
-					</div>
-				  </div>
-				  <div class="control-group">
-					<label class="control-label" for="inputPost">Post Code/ Zipcode </label>
-					<div class="controls">
-					  <input type="text" id="inputPost" placeholder="Postcode">
-					</div>
-				  </div>
-				  <div class="control-group">
-					<div class="controls">
-					  <button type="submit" class="btn">ESTIMATE </button>
-					</div>
-				  </div>
-				</form>				  
-			  </td>
-			  </tr>
-            </table> -->
     <a href="products.html" class="btn btn-large"><i class="icon-arrow-left"></i> Continue Shopping </a>
     <a href="login.html" class="btn btn-large pull-right">Next <i class="icon-arrow-right"></i></a>
 
