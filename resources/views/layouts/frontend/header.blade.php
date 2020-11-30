@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Section;
+
 $sections = Section::sections();
 ?>
 <div id="header">
@@ -28,20 +29,20 @@ $sections = Section::sections();
 							<ul class="nav">
 								<li class="active"><a href="{{ url('/') }}">Home</a></li>
 								@foreach($sections as $section)
-									@if(count($section['categories']) > 0)
-										<li class="dropdown">
-											<a href="{{ url('/') }}" class="dropdown-toggle" data-toggle="dropdown">{{ $section['name']}} <b class="caret"></b></a>
-											<ul class="dropdown-menu">
-												@foreach($section['categories'] as $category)
-												<li class="divider"></li>
-												<li class="nav-header"><a href="{{ url('/'.$category['url']) }}">{{ $category['category_name'] }}</a></li>
-													@foreach($category['subcategories'] as $subcategory)
-														<li><a href="{{ url('/'.$subcategory['url']) }}">{{ $subcategory['category_name'] }}</a></li>
-													@endforeach
-												@endforeach
-											</ul>
-										</li>
-									@endif
+								@if(count($section['categories']) > 0)
+								<li class="dropdown">
+									<a href="{{ url('/') }}" class="dropdown-toggle" data-toggle="dropdown">{{ $section['name']}} <b class="caret"></b></a>
+									<ul class="dropdown-menu">
+										@foreach($section['categories'] as $category)
+										<li class="divider"></li>
+										<li class="nav-header"><a href="{{ url('/'.$category['url']) }}">{{ $category['category_name'] }}</a></li>
+										@foreach($category['subcategories'] as $subcategory)
+										<li><a href="{{ url('/'.$subcategory['url']) }}">{{ $subcategory['category_name'] }}</a></li>
+										@endforeach
+										@endforeach
+									</ul>
+								</li>
+								@endif
 								@endforeach
 								<li><a href="#">About</a></li>
 							</ul>
@@ -51,7 +52,12 @@ $sections = Section::sections();
 							<ul class="nav pull-right">
 								<li><a href="#">Contact</a></li>
 								<li class="divider-vertical"></li>
-								<li><a href="#">Login</a></li>
+								@if(Auth::check())
+									<li><a href="{{ url('account') }}">My Account</a></li>
+									<li><a href="{{ url('logout') }}">Logout</a></li>
+								@else
+									<li><a href="{{ url('login-register') }}">Login/Register</a></li>
+								@endif
 							</ul>
 						</div><!-- /.nav-collapse -->
 					</div>

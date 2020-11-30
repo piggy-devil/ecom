@@ -24,6 +24,14 @@
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ url('frontend/themes/images/ico/apple-touch-icon-72-precomposed.png') }}">
 	<link rel="apple-touch-icon-precomposed" href="{{ url('frontend/themes/images/ico/apple-touch-icon-57-precomposed.png') }}">
 	<style type="text/css" id="enject"></style>
+	
+	<!-- Add Require Error jquery -->
+	<style>
+		form.cmxform label.error, label.error {
+			color: red;
+			font-style: italic;
+		}
+	</style>
 </head>
 
 <body>
@@ -44,6 +52,7 @@
 	@include('layouts.frontend.footer')
 	<!-- Placed at the end of the document so the pages load faster ============================================= -->
 	<script type="text/javascript" src="{{ asset('frontend/themes/js/jquery.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('frontend/themes/js/jquery.validate.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('frontend/themes/js/front.min.js') }}"></script>
 	<script src="{{ asset('frontend/themes/js/google-code-prettify/prettify.js') }}"></script>
 

@@ -22,7 +22,7 @@ use App\Http\Controllers\Admin\SectionController;
 //     return view('welcome');
 // });
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -112,5 +112,20 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
 
     // Delete Cart Item Quantity
     Route::post('/delete-cart-item', 'ProductController@deleteCartItem');
+
+    // Login/Register
+    Route::get('/login-register', 'UserController@loginRegister');
+
+    // Login User
+    Route::post('/login', 'UserController@loginUser');
+    
+    // Register User
+    Route::post('/register', 'UserController@registerUser');
+
+    // Check if Email already exists
+    Route::match(['get', 'post'], '/check-email', 'UserController@checkEmail');
+
+    // Logout User
+    Route::get('/logout', 'UserController@logoutUser');
 
 });
