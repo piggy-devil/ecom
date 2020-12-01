@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Database\Seeders\AdminsTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,6 +21,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(ProductsAttributesTableSeeder::class);
         // $this->call(ProductImagesTableSeeder::class);
         // $this->call(BrandsTableSeeder::class);
-        $this->call(BannersTableSeeder::class);
+        // $this->call(BannersTableSeeder::class);
+        $this->call(AmuletmodelsTableSeeder::class);
     }
 }

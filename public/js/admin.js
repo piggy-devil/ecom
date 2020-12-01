@@ -174,6 +174,26 @@ $(document).ready(function() {
         });
     });
 
+    // อัพเดตสถานะชื่อรุ่น
+    $(document).on("click", ".updateAmuletmodelStatus", function(){
+        var status = $(this).children("i").attr("status");
+        var amuletmodel_id = $(this).attr("amuletmodel_id");
+        $.ajax({
+           type:'post',
+           url:'/admin/update-amuletmodel-status',
+           data:{status:status, amuletmodel_id:amuletmodel_id},
+           success:function(resp){
+            if(resp['status']==0){
+                $("#amuletmodel-"+amuletmodel_id).html("<i title='Inactive' class='fas fa-toggle-off' aria-hidden='true' status='Inactive'></i>"); 
+               }else if(resp['status']==1){
+                $("#amuletmodel-"+amuletmodel_id).html("<i title='Active' class='fas fa-toggle-on' aria-hidden='true' status='Active'></i>"); 
+            }
+           },error:function(){
+               alert('Error');
+           }
+        });
+    });
+
     // Confirm Deletion with SweetAlert
     $(".confirmDelete").click(function() {
         var record = $(this).attr("record");

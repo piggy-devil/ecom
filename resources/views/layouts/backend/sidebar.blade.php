@@ -76,6 +76,46 @@
                     </ul>
                 </li>
 
+                <!-- รายการจองพระ -->
+                @if(Session::get('page')=="amuletmodels" || Session::get('page')=="update-admin-details")
+                <?php $active = "active"; ?>
+                @else
+                <?php $active = ""; ?>
+                @endif
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link {{ $active }}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            เปิดจองพระ
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        @if(Session::get('page')=="amuletmodels")
+                        <?php $active = "active"; ?>
+                        @else
+                        <?php $active = ""; ?>
+                        @endif
+                        <li class="nav-item">
+                            <a href="{{ url('/admin/amuletmodels') }}" class="nav-link {{ $active }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>ชื่อรุ่น</p>
+                            </a>
+                        </li>
+                        @if(Session::get('page')=="update-admin-details")
+                        <?php $active = "active"; ?>
+                        @else
+                        <?php $active = ""; ?>
+                        @endif
+                        <li class="nav-item">
+                            <a href="{{ url('/admin/update-admin-details') }}" class="nav-link {{ $active }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Update Admin Details</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <!-- Catalogues -->
                 @if(Session::get('page')=="sections" || Session::get('page')=="brands" || Session::get('page')=="categories" || Session::get('page')=="products" || Session::get('page')=="banners")
                 <?php $active = "active"; ?>

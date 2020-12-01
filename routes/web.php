@@ -49,6 +49,12 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         Route::match(['get', 'post'], 'add-edit-brand/{id?}', 'BrandController@addEditBrand');
         Route::get('delete-brand/{id}', 'BrandController@deleteBrand');
 
+        // Model Amulets
+        Route::get('amuletmodels', 'AmuletModelController@amuletmodels');
+        Route::match(['get', 'post'], 'add-edit-amuletmodel/{id?}', 'AmuletmodelController@addEditAmuletModel');
+        Route::get('delete-amuletmodel/{id}', 'AmuletmodelController@deleteAmuletmodel');
+        Route::post('update-amuletmodel-status', 'AmuletmodelController@amuletmodelStatus');
+
         // Categories
         Route::get('categories', 'CategoryController@categories');
         Route::post('update-category-status', 'CategoryController@updateCategoryStatus');
