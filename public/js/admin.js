@@ -216,26 +216,49 @@ $(document).ready(function() {
     });
 
     // Products Attributes Add/Remove Script
-        var maxField = 10; //Input fields increment limitation
-        var addButton = $('.add_button'); //Add button selector
-        var wrapper = $('.field_wrapper'); //Input field wrapper
-        var fieldHTML = '<div style="margin-top:10px;"><input type="text" name="size[]" placeholder="Size" style="width: 100px; value="" required/>&nbsp;<input type="text" name="sku[]" placeholder="SKU" style="width: 100px; value="" required/>&nbsp;<input type="number" name="price[]" placeholder="Price" style="width: 100px; value="" required/>&nbsp;<input type="number" name="stock[]" placeholder="Stock" style="width: 100px; value="" required/><a href="javascript:void(0);" class="remove_button">Delete</a></div>'; //New input field html 
-        var x = 1; //Initial field counter is 1
+    var maxField = 10; //Input fields increment limitation
+    var addButton = $('.add_button'); //Add button selector
+    var wrapper = $('.field_wrapper'); //Input field wrapper
+    var fieldHTML = '<div style="margin-top:10px;"><input type="text" name="size[]" placeholder="Size" style="width: 100px; value="" required/>&nbsp;<input type="text" name="sku[]" placeholder="SKU" style="width: 100px; value="" required/>&nbsp;<input type="number" name="price[]" placeholder="Price" style="width: 100px; value="" required/>&nbsp;<input type="number" name="stock[]" placeholder="Stock" style="width: 100px; value="" required/><a href="javascript:void(0);" class="remove_button">Delete</a></div>'; //New input field html 
+    var x = 1; //Initial field counter is 1
+    
+    //Once add button is clicked
+    $(addButton).click(function(){
+        //Check maximum number of input fields
+        if(x < maxField){ 
+            x++; //Increment field counter
+            $(wrapper).append(fieldHTML); //Add field html
+        }
+    });
+    
+    //Once remove button is clicked
+    $(wrapper).on('click', '.remove_button', function(e){
+        e.preventDefault();
+        $(this).parent('div').remove(); //Remove field html
+        x--; //Decrement field counter
+    });
+
+
+    $("#is_topic").on('click', function(){
+        // var input = document.getElementsByClassName("table_is_topic");
+        var topic = document.getElementsByClassName("table_is_topic"); 
         
-        //Once add button is clicked
-        $(addButton).click(function(){
-            //Check maximum number of input fields
-            if(x < maxField){ 
-                x++; //Increment field counter
-                $(wrapper).append(fieldHTML); //Add field html
+        if($(this).is(":checked")){
+            // alert('is_topic');
+            // document.getElementsByClassName("table_is_topic")[0].disabled = true;
+            for (var i = 0; i < topic.length; i++) { 
+                topic[i].disabled = true;
             }
-        });
-        
-        //Once remove button is clicked
-        $(wrapper).on('click', '.remove_button', function(e){
-            e.preventDefault();
-            $(this).parent('div').remove(); //Remove field html
-            x--; //Decrement field counter
-        });
+            // input.disabled = true;
+        }
+        else if($(this).is(":not(:checked)")){
+            // document.getElementsByClassName("table_is_topic")[0].disabled = false;
+            // alert('no_topic');
+            for (var i = 0; i < topic.length; i++) { 
+                topic[i].disabled = false;
+            }
+            // input.disabled = false;
+        }
+    });
 
 });

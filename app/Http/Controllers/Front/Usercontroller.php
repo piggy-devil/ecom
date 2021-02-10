@@ -55,6 +55,21 @@ class Usercontroller extends Controller
         }
     }
 
+    public function loginUser(Request $request)
+    {
+        if($request->isMethod('post')) {
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            if(Auth::attempt(['email'=>$data['email'], 'password'=> $data['password']])){
+                return redirect('/cart');
+            } else {
+                $message = "Invalid Username or Password";
+                Session::flash('error_message', $message);
+                return redirect()->back();
+            }
+        }
+    }
+
     public function logoutUser()
     {
         Auth::logout();

@@ -66,6 +66,8 @@ class Product extends Model
             $discounted_price = 0;
         }
 
+        // dd($discounted_price);
+
         return $discounted_price;
     }
 

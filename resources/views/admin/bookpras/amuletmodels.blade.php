@@ -55,6 +55,8 @@
                                         <td>{{ $amuletmodel->name }}</td>
                                         <td>{{ $amuletmodel->purpose }}</td>
                                         <td>
+                                            <a title="แก้ไขรายการ" href="{{ url('admin/add-amuletbook/'.$amuletmodel->id) }}"><i class="fas fa-plus"></i></a>
+                                            &nbsp;&nbsp;
                                             <a title="แก้ไขรายการ" href="{{ url('admin/add-edit-amuletmodel/'.$amuletmodel->id) }}"><i class="fas fa-edit"></i></a>
                                             &nbsp;&nbsp;
                                             <a title="ลบรายการ" href="javascrip:void(0)" class="confirmDelete" record="amuletmodel" recordid="{{ $amuletmodel->id }}"><i class="fas fa-trash"></i></a>

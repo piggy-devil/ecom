@@ -77,7 +77,7 @@
                 </li>
 
                 <!-- รายการจองพระ -->
-                @if(Session::get('page')=="amuletmodels" || Session::get('page')=="update-admin-details")
+                @if(Session::get('page')=="amuletmodels" || Session::get('page')=="ambooks")
                 <?php $active = "active"; ?>
                 @else
                 <?php $active = ""; ?>
@@ -102,15 +102,15 @@
                                 <p>ชื่อรุ่น</p>
                             </a>
                         </li>
-                        @if(Session::get('page')=="update-admin-details")
+                        @if(Session::get('page')=="ambooks")
                         <?php $active = "active"; ?>
                         @else
                         <?php $active = ""; ?>
                         @endif
                         <li class="nav-item">
-                            <a href="{{ url('/admin/update-admin-details') }}" class="nav-link {{ $active }}">
+                            <a href="{{ url('/admin/ambooks') }}" class="nav-link {{ $active }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Update Admin Details</p>
+                                <p>รายการ</p>
                             </a>
                         </li>
                     </ul>

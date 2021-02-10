@@ -177,4 +177,28 @@ $(document).ready(function(){
 		}
 	});
 
+    // validate login form on keyup and submit
+	$("#loginForm").validate({
+		rules: {
+            email: {
+                required: true,
+                email: true,
+            },
+			password: {
+				required: true,
+				minlength: 5
+			}
+		},
+		messages: {
+            email: {
+                required: "Please enter your Email",
+                email: "Please enter your valid Email",
+            },
+			password: {
+				required: "Please enter your password",
+				minlength: "Your password must be at least 5 characters long"
+			},
+		}
+	});
+
 });

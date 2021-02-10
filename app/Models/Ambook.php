@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Amuletmodel extends Model
+class Ambook extends Model
 {
     use HasFactory;
 
-    public function amuletbooks()
+    public function ambookattributes()
     {
-        return $this->hasMany('App\Models\Ambook', 'ammodel_id', 'id');
+        return $this->hasMany('App\Models\AmbookAttribute');
     }
 }

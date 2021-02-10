@@ -15,7 +15,7 @@ class ProductImagesTableSeeder extends Seeder
     public function run()
     {
         $productImageRecords = [
-            ['id' => 1, 'product_id' => 1, 'image' => 'DSC_1776.jpg-74242.jpg', 'status' => 1]
+            ['id' => 1, 'product_id' => 1, 'image' => '', 'status' => 1]
         ];
         ProductImage::insert($productImageRecords);
     }

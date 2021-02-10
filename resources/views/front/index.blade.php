@@ -80,7 +80,7 @@ use App\Models\Product; ?>
                         <!-- <a class="btn" href="{{ url('product/'.$product['id']) }}"> <i class="icon-zoom-in"></i></a>  -->
                         <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a>
                         <a class="btn btn-primary" href="#">
-                            @if($discounted_price > 0)
+                            @if($discounted_price ?? '' > 0)
                             <del>Rs.{{ $product['product_price'] }}</del>
                             <font color="yellow">{{ $discounted_price }}</font>
                             @else

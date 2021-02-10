@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Session;
 use App\Models\Amuletmodel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Session;
+use App\Models\Ambook;
 
 class AmuletModelController extends Controller
 {
@@ -13,7 +14,8 @@ class AmuletModelController extends Controller
     {
         Session::put('page', 'amuletmodels');
         $amuletmodels = Amuletmodel::get();
-        return view('admin.bookpra.amuletmodels')->with(compact('amuletmodels'));
+        return view('admin.bookpras.amuletmodels')->with(compact('amuletmodels'));
+
     }
 
     public function amuletmodelStatus(Request $request)
@@ -69,7 +71,7 @@ class AmuletModelController extends Controller
         }
         $amuletmodeldata = $amuletmodel;
 
-        return view('admin.bookpra.add_edit_amuletmodel')->with(compact('title', 'amuletmodeldata'));
+        return view('admin.bookpras.add_edit_amuletmodel')->with(compact('title', 'amuletmodeldata'));
     }
 
     public function deleteAmuletmodel($id)

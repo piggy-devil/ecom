@@ -54,7 +54,15 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         Route::match(['get', 'post'], 'add-edit-amuletmodel/{id?}', 'AmuletmodelController@addEditAmuletModel');
         Route::get('delete-amuletmodel/{id}', 'AmuletmodelController@deleteAmuletmodel');
         Route::post('update-amuletmodel-status', 'AmuletmodelController@amuletmodelStatus');
-
+        
+        // Ambook
+        Route::get('ambooks', 'AmbookController@ambooks');
+        Route::match(['get', 'post'], 'add-amuletbook/{id?}', 'AmbookController@addAmuletbook');
+        Route::match(['get', 'post'], 'add-edit-ambook/{id?}', 'AmbookController@addEditAmbook');
+        Route::match(['get', 'post'], 'add-edit-attr-ambook/{id?}', 'AmbookController@addEditAttrAmbook');
+        Route::get('delete-ambook/{id}', 'AmbookController@deleteAmbook');
+        
+        
         // Categories
         Route::get('categories', 'CategoryController@categories');
         Route::post('update-category-status', 'CategoryController@updateCategoryStatus');
@@ -62,7 +70,7 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         Route::post('append-categories-level', 'CategoryController@appendCategoryLevel');
         Route::get('delete-category-image/{id}', 'CategoryController@deleteCategoryImage');
         Route::get('delete-category/{id}', 'CategoryController@deleteCategory');
-
+        
         // Products
         Route::get('products', 'ProductController@products');
         Route::post('update-product-status', 'ProductController@updateProductStatus');
@@ -70,12 +78,15 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function
         Route::match(['get', 'post'], 'add-edit-product/{id?}', 'ProductController@addEditProduct');
         Route::get('delete-product-image/{id}', 'ProductController@deleteProductImage');
         Route::get('delete-product-video/{id}', 'ProductController@deleteProductVideo');
-
+        
         // Attributes
         Route::match(['get', 'post'], 'add-attributes/{id?}', 'ProductController@addAttributes');
         Route::post('edit-attributes/{id?}', 'ProductController@editAttributes');
         Route::post('update-attribute-status', 'ProductController@updateAttributeStatus');
         Route::get('delete-attribute/{id}', 'ProductController@deleteAttribute');
+        
+        // Ambooklist
+        // Route::match(['get', 'post'], 'add-ambook/{id?}', 'AmuletmodelController@ttt');
 
         // Images
         Route::match(['get', 'post'], 'add-images/{id}', 'ProductController@addImages');
@@ -96,10 +107,10 @@ Route::namespace('App\Http\Controllers\Front')->group(function(){
     Route::get('/', 'IndexController@index');
 
     // Listing/Categories Route
-    $catUrls = Category::select('url')->where('status', 1)->get()->pluck('url')->toArray();
-    foreach($catUrls as $url) {
-        Route::get('/'.$url, 'ProductController@listing');
-    }
+    // $catUrls = Category::select('url')->where('status', 1)->get()->pluck('url')->toArray();
+    // foreach($catUrls as $url) {
+    //     Route::get('/'.$url, 'ProductController@listing');
+    // }
 
     // Product Detail Route
     Route::get('/product/{id}', 'ProductController@detail');
