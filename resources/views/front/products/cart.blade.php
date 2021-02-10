@@ -13,17 +13,17 @@
         </tr>
         <tr>
             <td>
-                <form class="form-horizontal">
+                <form class="form-horizontal" id="loginForm" action="{{ url('/login') }}" method="post">@csrf
                     <div class="control-group">
-                        <label class="control-label" for="inputUsername">Username</label>
+                        <label class="control-label" for="email">Email</label>
                         <div class="controls">
-                            <input type="text" id="inputUsername" placeholder="Username">
+                            <input class="span3" type="email" id="email" name="email" placeholder="Email">
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="inputPassword1">Password</label>
+                        <label class="control-label" for="password">Password</label>
                         <div class="controls">
-                            <input type="password" id="inputPassword1" placeholder="Password">
+                            <input class="span3" type="password" id="password" name="password" placeholder="Email">
                         </div>
                     </div>
                     <div class="control-group">
