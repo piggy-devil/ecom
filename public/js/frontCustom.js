@@ -201,4 +201,30 @@ $(document).ready(function(){
 		}
 	});
 
+    // validate account form on keyup and submit
+	$("#accountForm").validate({
+		rules: {
+			name: {
+                required: true,
+            },
+			mobile: {
+				required: true,
+                minlength: 10,
+                maxlength: 10,
+                digits: true
+			},
+		},
+		messages: {
+			name: {
+                required: "Please enter your Name",
+            },
+			mobile: {
+				required: "Please enter a mobile",
+				minlength: "Your mobile must consist of 10 digits",
+				maxlength: "Your mobile must consist of 10 digits",
+				digits: "Please enter your valid Mobile",
+			},
+		}
+	});
+
 });
