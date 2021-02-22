@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Models\Cart;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -91,5 +92,54 @@ class Usercontroller extends Controller
     {
         Auth::logout();
         return redirect('/');
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        if ($request->isMethod('post')){
+            Session::forget('success_message');
+            Session::forget('error_message');
+            $data = $request->all();
+            // echo "<pre>"; print_r($data); die;
+            $emailCount = User::where('email', $data['email'])->count();
+            if($emailCount === 0) {
+                $message = "Email does not exists!";
+                Session::put('error_message', $message);
+                Session::forget('success_message');
+                return redirect()->back();
+            }
+
+            $random_password = Str::random(8);
+
+            // Encode/Secure Password
+            $new_password = bcrypt($random_password);
+
+            // Update Password
+            // User::where('email', $data['email'])->update(['password' => $new_password]);
+
+            // Get User Name
+            $userName = User::select('name')->where('email', $data['email'])->first();
+
+            // Send Forgot Password Email
+            $email = $data['email'];
+            $name = $userName->name;
+            $messageData = [
+                'email' => $email,
+                'name' => $name,
+                'password' => $random_password
+            ];
+
+            // Mail::send('emails.forgot_password', $messageData, function ($message) {
+            //     $message->to($email)->subject('New Password - E-commerce Website');
+
+            // });
+
+            // Redirect to Login/Register Page with Success message
+            $message = "Please check your email for new Password!";
+            Session::put('success_message', $message);
+            Session::forget('error_message');
+            return redirect('login-register');
+        }
+        return view('front.users.forgot_password');
     }
 }
